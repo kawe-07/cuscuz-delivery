@@ -1,158 +1,59 @@
 import {
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
-} from "react-native";
+} from 'react-native';
 
 export default function HomeScreen() {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView className="flex-1 bg-background px-5">
+      <View className="mb-6 mt-12">
+        <Text className="text-base text-secondary">Olá! 👋</Text>
 
-      <View style={styles.header}>
-        <Text style={styles.greeting}>
-          Olá! 👋
-        </Text>
-
-        <Text style={styles.title}>
+        <Text className="mt-1 text-3xl font-bold text-text">
           O que deseja comer hoje?
         </Text>
       </View>
 
-      <View style={styles.banner}>
-        <Text style={styles.offer}>
+      <View className="rounded-3xl bg-primary p-6">
+        <Text className="text-sm font-bold text-surface">
           OFERTA ESPECIAL
         </Text>
 
-        <Text style={styles.bannerTitle}>
-          Hambúrguer + Bebida
+        <Text className="mt-2 text-2xl font-bold text-surface">
+          Cuscuz + Bebida
         </Text>
 
-        <Text style={styles.bannerText}>
+        <Text className="mt-2 text-base text-surface">
           Uma combinação perfeita para seu pedido.
         </Text>
 
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>
-            Peça agora
-          </Text>
+        <TouchableOpacity className="mt-5 self-start rounded-xl bg-surface px-5 py-3">
+          <Text className="font-bold text-secondary">Peça agora</Text>
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.sectionTitle}>
+      <Text className="mb-4 mt-8 text-2xl font-bold text-text">
         Categorias
       </Text>
 
-      <View style={styles.categories}>
-
-        <TouchableOpacity style={styles.category}>
-          <Text style={styles.emoji}>🍔</Text>
-          <Text>Burger</Text>
+      <View className="flex-row justify-between">
+        <TouchableOpacity className="w-[30%] items-center rounded-2xl bg-surface p-4">
+          <Text className="mb-1 text-3xl">🌽</Text>
+          <Text className="text-text">Cuscuz</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.category}>
-          <Text style={styles.emoji}>🍕</Text>
-          <Text>Pizza</Text>
+        <TouchableOpacity className="w-[30%] items-center rounded-2xl bg-surface p-4">
+          <Text className="mb-1 text-3xl">🥩</Text>
+          <Text className="text-text">Carnes</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.category}>
-          <Text style={styles.emoji}>🥤</Text>
-          <Text>Bebidas</Text>
+        <TouchableOpacity className="w-[30%] items-center rounded-2xl bg-surface p-4">
+          <Text className="mb-1 text-3xl">🥤</Text>
+          <Text className="text-text">Bebidas</Text>
         </TouchableOpacity>
-
       </View>
-
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-
-  container: {
-    flex: 1,
-    backgroundColor: "#ffffff",
-    paddingHorizontal: 20,
-  },
-
-  header: {
-    marginTop: 50,
-    marginBottom: 25,
-  },
-
-  greeting: {
-    fontSize: 16,
-    color: "#666666",
-  },
-
-  title: {
-    fontSize: 28,
-    fontWeight: "bold",
-    marginTop: 5,
-  },
-
-  banner: {
-    backgroundColor: "#FE8C00",
-    borderRadius: 20,
-    padding: 25,
-  },
-
-  offer: {
-    color: "#ffffff",
-    fontSize: 13,
-    fontWeight: "bold",
-  },
-
-  bannerTitle: {
-    color: "#ffffff",
-    fontSize: 25,
-    fontWeight: "bold",
-    marginTop: 8,
-  },
-
-  bannerText: {
-    color: "#ffffff",
-    fontSize: 15,
-    marginTop: 8,
-  },
-
-  button: {
-    backgroundColor: "#ffffff",
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 10,
-    marginTop: 20,
-    alignSelf: "flex-start",
-  },
-
-  buttonText: {
-    color: "#FE8C00",
-    fontWeight: "bold",
-  },
-
-  sectionTitle: {
-    fontSize: 22,
-    fontWeight: "bold",
-    marginTop: 30,
-    marginBottom: 15,
-  },
-
-  categories: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-
-  category: {
-    width: "30%",
-    backgroundColor: "#FFF3E6",
-    paddingVertical: 18,
-    borderRadius: 15,
-    alignItems: "center",
-  },
-
-  emoji: {
-    fontSize: 30,
-    marginBottom: 5,
-  },
-
-});
