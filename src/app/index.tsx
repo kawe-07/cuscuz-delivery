@@ -5,8 +5,18 @@ import {
   View,
 } from 'react-native';
 
+import { useState } from 'react';
+import { categorias } from '../constants/categorias';
+import { produtos } from '../constants/produtos';
+
 export default function HomeScreen() {
+
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState('Nenhuma');
+  const produtosFiltrados = produtos.filter((produto) => {
+    return produto.categoria === categoriaSelecionada;});
+
   return (
+    
     <ScrollView className="flex-1 bg-background px-5">
       <View className="mb-6 mt-12">
         <Text className="text-base text-secondary">Olá! 👋</Text>
@@ -16,44 +26,59 @@ export default function HomeScreen() {
         </Text>
       </View>
 
-      <View className="rounded-3xl bg-primary p-6">
+      <View className="mb-6 rounded-3xl bg-primary p-6">
         <Text className="text-sm font-bold text-surface">
           OFERTA ESPECIAL
         </Text>
 
         <Text className="mt-2 text-2xl font-bold text-surface">
-          Cuscuz + Bebida
+          Cuscuz + Café
         </Text>
 
         <Text className="mt-2 text-base text-surface">
           Uma combinação perfeita para seu pedido.
         </Text>
-
+        
         <TouchableOpacity className="mt-5 self-start rounded-xl bg-surface px-5 py-3">
           <Text className="font-bold text-secondary">Peça agora</Text>
         </TouchableOpacity>
       </View>
-
-      <Text className="mb-4 mt-8 text-2xl font-bold text-text">
-        Categorias
-      </Text>
-
+  
       <View className="flex-row justify-between">
-        <TouchableOpacity className="w-[30%] items-center rounded-2xl bg-surface p-4">
-          <Text className="mb-1 text-3xl">🌽</Text>
-          <Text className="text-text">Cuscuz</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity className="w-[30%] items-center rounded-2xl bg-surface p-4">
-          <Text className="mb-1 text-3xl">🥩</Text>
-          <Text className="text-text">Carnes</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity className="w-[30%] items-center rounded-2xl bg-surface p-4">
-          <Text className="mb-1 text-3xl">🥤</Text>
-          <Text className="text-text">Bebidas</Text>
-        </TouchableOpacity>
+        {categorias.map((categoria) => {
+          return(
+            <TouchableOpacity 
+            key={categoria.name}
+            className={`rounded-xl p-4 ${
+              categoria.name === categoriaSelecionada ? 'bg-primary' : 'bg-white'
+            }`}
+            onPress={() => setCategoriaSelecionada(categoria.name)}
+            >
+              <Text>
+                {categoria.icon} {categoria.name}
+              </Text>
+            </TouchableOpacity>
+          ); 
+        })}
       </View>
-    </ScrollView>
+
+      <View className="mt-5 gap-3">
+          {produtosFiltrados.map((produto) => (
+            <View key={produto.id} className="rounded-xl bg-white p-4">
+              <Text className="text-lg font-bold">
+                {produto.nome}
+              </Text>
+
+              <Text className="text-secondary">
+                {produto.descricao}
+              </Text>
+
+              <Text className="mt-2 font-bold text-primary">
+                R$ {produto.preco.toFixed(2).replace('.', ',')}
+              </Text>
+            </View>
+          ))}
+        </View>
+      </ScrollView>
   );
 }
