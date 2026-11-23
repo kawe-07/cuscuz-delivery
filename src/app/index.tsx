@@ -8,12 +8,22 @@ import {
 import { useState } from 'react';
 import { categorias } from '../constants/categorias';
 import { produtos } from '../constants/produtos';
+import  FoodCard  from '../components/foodcard';
 
 export default function HomeScreen() {
 
-  const [categoriaSelecionada, setCategoriaSelecionada] = useState('Nenhuma');
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState('Todos');
   const produtosFiltrados = produtos.filter((produto) => {
-    return produto.categoria === categoriaSelecionada;});
+    return  categoriaSelecionada === 'Todos' || produto.categoria === categoriaSelecionada;});
+
+  const [carrinho, setCarrinho] = useState<typeof produtos>([]);
+
+  function adicionarAoCarrinho(produto: typeof produtos[number]){
+    setCarrinho((carrinhoAtual) => {
+      return [...carrinhoAtual, produto]
+      
+  });
+  }
 
   return (
     
@@ -42,9 +52,17 @@ export default function HomeScreen() {
         <TouchableOpacity className="mt-5 self-start rounded-xl bg-surface px-5 py-3">
           <Text className="font-bold text-secondary">Peça agora</Text>
         </TouchableOpacity>
+        <Text>
+          Produtos no carrinho: {carrinho.length}
+        </Text>
       </View>
-  
-      <View className="flex-row justify-between">
+
+    <ScrollView horizontal 
+    showsHorizontalScrollIndicator={false}
+    contentContainerStyle={{ paddingRight: 10 }}
+    >
+
+      <View className="flex-row gap-3">
         {categorias.map((categoria) => {
           return(
             <TouchableOpacity 
@@ -62,21 +80,15 @@ export default function HomeScreen() {
         })}
       </View>
 
+      </ScrollView>
+
       <View className="mt-5 gap-3">
           {produtosFiltrados.map((produto) => (
-            <View key={produto.id} className="rounded-xl bg-white p-4">
-              <Text className="text-lg font-bold">
-                {produto.nome}
-              </Text>
-
-              <Text className="text-secondary">
-                {produto.descricao}
-              </Text>
-
-              <Text className="mt-2 font-bold text-primary">
-                R$ {produto.preco.toFixed(2).replace('.', ',')}
-              </Text>
-            </View>
+            <FoodCard 
+            key={produto.id} 
+            produto={produto}
+            onAdd={adicionarAoCarrinho}
+            />
           ))}
         </View>
       </ScrollView>
