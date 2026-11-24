@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function CheckoutScreen() {
 
+  // Estados que guardam os dados digitados no formulário.
   const [nome, setNome] = useState<string>('');
   const [telefone, setTelefone] = useState<string>('');
   const [endereco, setEndereco] = useState<string>('');
@@ -19,6 +20,7 @@ export default function CheckoutScreen() {
   return (
     <SafeAreaView className="flex-1 bg-background p-5">
 
+      {/* Volta para a tela inicial sem finalizar o pedido. */}
       <Pressable
         onPress={() => router.replace('/')}
           accessibilityRole="button"
@@ -41,6 +43,7 @@ export default function CheckoutScreen() {
           Dados do cliente
         </Text>   
 
+        {/* Campos principais do cliente. */}
         <TextInput className="mt-5 rounded-xl border border-gray-300 bg-white p-4"
           value={nome}
           onChangeText={setNome}
@@ -85,6 +88,7 @@ export default function CheckoutScreen() {
           Forma de pagamento
         </Text>   
         
+        {/* O pagamento escolhido fica destacado. */}
         <Pressable className={`rounded-xl border p-4 ${
           formadePagamento === 'Pix'
             ? 'border-primary bg-orange-50'
@@ -120,6 +124,7 @@ export default function CheckoutScreen() {
 
         </Pressable>
        
+       {/* Só pergunta sobre troco quando o pagamento é em dinheiro. */}
        {formadePagamento === 'Dinheiro' && (
         <View className="mt-4 rounded-xl bg-white p-4">
 

@@ -30,7 +30,9 @@ export const CarrinhoContext = createContext<CarrinhoContextType | null>(null);
 //Com o Context, os componentes que estiverem conectados a ele poderão acessar os dados diretamente, sem precisar atravessar toda a hierarquia.
 
 export function CarrinhoProvider({ children }: { children: React.ReactNode }) {
+  // Guarda os produtos escolhidos pelo usuário.
   const [carrinho, setCarrinho] = useState<ItemCarrinho[]>([]);
+  // Controla se a janela do carrinho está aberta.
   const [carrinhoAberto, setCarrinhoAberto] = useState(false);
 
   function abrirCarrinho() {
@@ -44,6 +46,7 @@ export function CarrinhoProvider({ children }: { children: React.ReactNode }) {
   const totalQuantidade = carrinho.reduce(
     (total, item) => total + item.quantidade, 0
   );
+  // Soma a quantidade de todos os produtos.
 
   const quantidadeCuscuz = carrinho.find(
     (item) => item.produto.id === 1
@@ -64,6 +67,7 @@ export function CarrinhoProvider({ children }: { children: React.ReactNode }) {
     (total, item) => total + item.produto.preco * item.quantidade,
     0
   ) - descontoCombo;
+  // Calcula o total e desconta o valor do combo.
 
   function adicionarAoCarrinho(produto: typeof produtos[number]) { //uma função que recebe um produto do nosso catálogo.
     
@@ -85,6 +89,7 @@ export function CarrinhoProvider({ children }: { children: React.ReactNode }) {
   }// se nao existir o produto entra com quantidade 1
 
   function adicionarCombo() {
+    // Adiciona cuscuz e café juntos no carrinho.
     const cuscuz = produtos.find((produto) => produto.id === 1);
     const cafe = produtos.find((produto) => produto.id === 4);
 
@@ -108,6 +113,7 @@ export function CarrinhoProvider({ children }: { children: React.ReactNode }) {
   }
 
   function diminuirQuantidade(id: number) {
+  // Diminui uma unidade ou remove o produto quando chega a zero.
   setCarrinho((carrinhoAtual) => {
     const item = carrinhoAtual.find(
       (item) => item.produto.id === id
@@ -128,6 +134,7 @@ export function CarrinhoProvider({ children }: { children: React.ReactNode }) {
   }
 
   function finalizarPedido() {
+  // Só continua se o carrinho tiver algum produto.
   if (carrinho.length === 0) {
     return;
   }
@@ -158,6 +165,7 @@ export function CarrinhoProvider({ children }: { children: React.ReactNode }) {
       animationType="slide"
       onRequestClose={fecharCarrinho}
     >
+      {/* Janela que mostra os itens e o total do carrinho. */}
       <View className="flex-1 justify-end bg-black/50">
         <View className="rounded-t-3xl bg-white p-6">
 

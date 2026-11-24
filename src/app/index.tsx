@@ -15,8 +15,10 @@ import { produtos } from '../constants/produtos';
 
 export default function HomeScreen() {
 
+  // Guarda a categoria escolhida pelo usuário.
   const [categoriaSelecionada, setCategoriaSelecionada] = useState('Todos');
 
+  // Filtra os produtos pela categoria selecionada.
   const produtosFiltrados = produtos.filter((produto) => {
     return categoriaSelecionada === 'Todos' || produto.categoria === categoriaSelecionada;
   });
@@ -36,6 +38,7 @@ export default function HomeScreen() {
     contentContainerStyle={{ paddingBottom: 120 }}>
 
       <View className="mb-6 mt-12">
+        
         <Text className="text-base text-secondary">Olá! 👋</Text>
         <Text className="mt-1 text-3xl font-bold text-text">
           O que deseja comer hoje?
@@ -43,6 +46,7 @@ export default function HomeScreen() {
       </View>
 
       <View className="mb-6 rounded-3xl bg-primary p-6">
+        {/* Área da oferta especial do combo. */}
         <Text className="text-sm font-bold text-surface">
           OFERTA ESPECIAL
         </Text>
@@ -84,6 +88,7 @@ export default function HomeScreen() {
     >
 
       <View className="flex-row gap-3">
+        {/* Botões usados para trocar o filtro. */}
         {categorias.map((categoria) => {
           return(
             <TouchableOpacity 
@@ -104,6 +109,7 @@ export default function HomeScreen() {
       </ScrollView>
 
       <View className="mt-5 gap-3">
+          {/* Lista os produtos que passaram pelo filtro. */}
           {produtosFiltrados.map((produto) => (
             <FoodCard 
             key={produto.id} 
@@ -113,6 +119,7 @@ export default function HomeScreen() {
         </View>
       </ScrollView>
 
+    {/* Só mostra o acesso ao carrinho quando há itens. */}
     {totalQuantidade > 0 && (
   <Pressable
     onPress={abrirCarrinho}
