@@ -1,5 +1,8 @@
 import { Pressable,View,Text } from "react-native";
 import { Feather } from '@expo/vector-icons';
+import { useContext } from 'react';
+import { CarrinhoContext } from './carrinho/Carrinho';
+
 type Produto = {
     id: number;
     nome: string;
@@ -9,10 +12,16 @@ type Produto = {
 }
 type Props = {
     produto: Produto;
-    onAdd: (produto: Produto)=> void;
 }
 
 export  default function FoodCard(props: Props) {
+
+    const carrinhoContexto = useContext(CarrinhoContext);
+    
+    if (!carrinhoContexto) {
+        throw new Error('FoodCard precisa estar dentro do CarrinhoProvider');
+    }
+    const { adicionarAoCarrinho } = carrinhoContexto;
 
     return(
 
@@ -34,7 +43,7 @@ export  default function FoodCard(props: Props) {
         </Text>
 
         <Pressable
-            onPress={() => props.onAdd(props.produto)}
+            onPress={() => adicionarAoCarrinho(props.produto)}
             className="mt-3 self-end h-16 w-16 items-center justify-center rounded-2xl bg-primary"
         >
             <View className="flex-row items-center">
